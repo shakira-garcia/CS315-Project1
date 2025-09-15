@@ -1,28 +1,27 @@
 #include "Maze.h"
 #include <iostream>
+#include <string>
 using namespace std;
 
 int main(int argc, char* argv[]) {
     Maze maze;
 
-    // Default file name
+    // Default filename
     string filename = "maze0-1_input.txt";
 
-    // If a file name is given on the command line, use that instead
+    // If user provides a command-line argument, use that instead
     if (argc > 1) {
         filename = argv[1];
     }
 
-    // Try to load the maze
+    // Load the maze from the file
     if (!maze.loadFromFile(filename)) {
         return 1; // quit if file not found
     }
 
-    // Print the maze as it was read from the file
     cout << "Original maze:\n";
     maze.printMaze();
 
-    // Attempt to solve the maze
     if (maze.solve()) {
         cout << "\nSolved maze:\n";
         maze.printMaze();
