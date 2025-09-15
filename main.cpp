@@ -2,34 +2,37 @@
 #include <iostream>
 using namespace std;
 
-int main() {
-    // Create a Maze object to work with
+int main(int argc, char* argv[]) {
     Maze maze;
 
-    // Load the maze from the input file.
-    // If loading fails, exit the program with error code 1.
-    if (!maze.loadFromFile("maze0-1_input.txt")) {
+    // Default file name
+    string filename = "maze0-1_input.txt";
+
+    // If a file name is given on the command line, use that instead
+    if (argc > 1) {
+        filename = argv[1];
+    }
+
+    // Try to load the maze
+    if (!maze.loadFromFile(filename)) {
         return 1; // quit if file not found
     }
 
-    // Print the maze exactly as it looks in the file
+    // Print the maze as it was read from the file
     cout << "Original maze:\n";
     maze.printMaze();
 
-    // Try to solve the maze using the Maze class's solve() function
+    // Attempt to solve the maze
     if (maze.solve()) {
-        // If a solution is found, print the maze again
-        // The solution path will be shown as blank spaces
         cout << "\nSolved maze:\n";
         maze.printMaze();
     } else {
-        // If no solution exists, let the user know
         cout << "\nNo path found.\n";
     }
 
-    // End of program
     return 0;
 }
+
 
 
 
